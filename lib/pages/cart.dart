@@ -1,22 +1,21 @@
 import 'package:bananacashierapp/main.dart';
-import 'package:bananacashierapp/pages/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:bananacashierapp/api/sheets/user_sheets_api.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:bananacashierapp/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
-class RoomPage extends StatefulWidget {
-  RoomPage({Key? key}) : super(key: key);
+class CartPage extends StatefulWidget {
+  CartPage({Key? key}) : super(key: key);
 
   @override
-  State<RoomPage> createState() => _RoomPageState();
+  State<CartPage> createState() => _CartPageState();
 }
 
-class _RoomPageState extends State<RoomPage> {
+class _CartPageState extends State<CartPage> {
   getData() async {
     final api = UserSheetsApi();
-    final roomData = await api.getSheet('Room');
+    final roomData = await api.getSheet('Cart');
     return roomData;
   }
 
@@ -69,8 +68,10 @@ class _RoomPageState extends State<RoomPage> {
                     ),
                     Consumer<CartProvider>(
                       builder: (context, value, _) {
-                        var id = value.cart.indexWhere(
-                            (element) => element.id == room.data![0].id);
+                        var id = value.cart.indexWhere((
+                          element,
+                        ) =>
+                            element.id == room.data![0].id);
                         return Text(
                           (id == -1) ? "0" : value.cart[id].quantity.toString(),
                           textAlign: TextAlign.left,
@@ -148,12 +149,10 @@ class _RoomPageState extends State<RoomPage> {
           ),
           centerTitle: true,
           actions: [
-            IconButton(
-                icon: Icon(Icons.shopping_cart),
-                color: Colors.black,
-                onPressed: () {
-                  CartPage();
-                }),
+            Icon(
+              Icons.shopping_cart,
+              color: Colors.black,
+            )
           ],
         ),
         body: Center(

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -128,8 +127,7 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
             height: 100.0,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("url"),
-                    fit: BoxFit.cover),
+                    image: AssetImage("url"), fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(10.0)),
           ),
         ],

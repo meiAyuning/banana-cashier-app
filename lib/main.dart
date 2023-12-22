@@ -1,15 +1,13 @@
 import 'dart:async';
-import 'dart:developer';
 
+import 'package:bananacashierapp/pages/cart.dart';
 import 'package:bananacashierapp/pages/food.dart';
 import 'package:bananacashierapp/pages/room.dart';
-import 'package:bananacashierapp/pages/login.dart';
-import 'package:bananacashierapp/pages/menu.dart';
-import 'package:bananacashierapp/pages/register.dart';
 import 'package:bananacashierapp/pages/trip.dart';
-import 'package:carousel_slider/carousel_options.dart';
+import 'package:bananacashierapp/providers/cart_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,10 +19,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Banana Banyuwangi',
-        debugShowCheckedModeBanner: false,
-        home: SplashScreenPage());
+    return ChangeNotifierProvider<CartProvider>(
+        create: (context) => CartProvider(),
+        child: MaterialApp(
+            title: 'Banana Banyuwangi',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(primarySwatch: Colors.yellow),
+            home: SplashScreenPage()));
   }
 }
 
@@ -59,12 +60,31 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(235, 235, 188, 34),
-      body: Center(
-        child: Image.asset(
-          "images/logo.png",
-          width: 450.0,
-          height: 450.0,
-        ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Positioned(
+            top: 50, // Atur posisi teks sesuai keinginan Anda
+            left: 0,
+            right: 0,
+            child: Text(
+              'Welcome To Banana Cashier',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black, // Ganti warna teks sesuai kebutuhan
+                fontSize: 30.0, // Sesuaikan ukuran teks
+                fontWeight: FontWeight.bold, // Sesuaikan gaya teks
+              ),
+            ),
+          ),
+          // Gambar splash screen
+          Image.asset(
+            'images/logo.png',
+            width: 450.0,
+            height: 450.0,
+            // fit: BoxFit.cover,
+          ),
+        ],
       ),
     );
   }
@@ -92,10 +112,12 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         actions: [
-          Icon(
-            Icons.shopping_cart,
-            color: Colors.black,
-          )
+          IconButton(
+              icon: Icon(Icons.shopping_cart),
+              color: Colors.black,
+              onPressed: () {
+                CartPage();
+              })
         ],
       ),
       body: ListView(
@@ -166,12 +188,11 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => RoomPage()),
+                      MaterialPageRoute(builder: (context) => RoomPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    // primary: Colors.transparent,
                     shadowColor: Colors.transparent,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 15.0),
@@ -202,12 +223,11 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => TripPage()),
+                      MaterialPageRoute(builder: (context) => TripPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    // primary: Colors.transparent,
                     shadowColor: Colors.transparent,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 15.0),
@@ -238,12 +258,11 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => FoodPage()),
+                      MaterialPageRoute(builder: (context) => FoodPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    // primary: Colors.transparent,
                     shadowColor: Colors.transparent,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 15.0),
