@@ -111,14 +111,6 @@ class _HomePageState extends State<HomePage> {
               color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.shopping_cart),
-              color: Colors.black,
-              onPressed: () {
-                CartPage();
-              })
-        ],
       ),
       body: ListView(
         children: <Widget>[
@@ -273,6 +265,12 @@ class _HomePageState extends State<HomePage> {
           ),
           _cardFood(1),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/cart');
+        },
+        child: Icon(Icons.shopping_cart),
       ),
     );
   }

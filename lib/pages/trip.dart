@@ -51,7 +51,7 @@ class _TripPageState extends State<TripPage> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(1),
                     child: Text(
-                      'Private Car Rp. ' + trip[2],
+                      'Rp. ' + trip[2],
                       style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                     ),
                   ),
@@ -153,14 +153,6 @@ class _TripPageState extends State<TripPage> {
                 fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          actions: [
-            IconButton(
-                icon: Icon(Icons.shopping_cart),
-                color: Colors.black,
-                onPressed: () {
-                  CartPage();
-                }),
-          ],
         ),
         body: Center(
           child: SafeArea(
@@ -186,6 +178,12 @@ class _TripPageState extends State<TripPage> {
               ],
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/cart');
+          },
+          child: Icon(Icons.shopping_cart),
         ),
       );
     }

@@ -49,7 +49,7 @@ class _RoomPageState extends State<RoomPage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(1),
                   child: Text(
-                    'Harga : Rp.' + room[2],
+                    'Rp.' + room[2],
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -147,14 +147,6 @@ class _RoomPageState extends State<RoomPage> {
                 fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          actions: [
-            IconButton(
-                icon: Icon(Icons.shopping_cart),
-                color: Colors.black,
-                onPressed: () {
-                  CartPage();
-                }),
-          ],
         ),
         body: Center(
           child: SafeArea(
@@ -181,6 +173,12 @@ class _RoomPageState extends State<RoomPage> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/cart');
+        },
+        child: Icon(Icons.shopping_cart),
+      ),
       );
     }
   }

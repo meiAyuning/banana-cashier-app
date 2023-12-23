@@ -51,7 +51,7 @@ class _FoodPageState extends State<FoodPage> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(1),
                     child: Text(
-                      'Private Car Rp. ' + food[2],
+                      'Rp. ' + food[2],
                       style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                     ),
                   ),
@@ -153,14 +153,6 @@ class _FoodPageState extends State<FoodPage> {
                 fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          actions: [
-            IconButton(
-                icon: Icon(Icons.shopping_cart),
-                color: Colors.black,
-                onPressed: () {
-                  CartPage();
-                })
-          ],
         ),
         body: Center(
           child: SafeArea(
@@ -187,6 +179,12 @@ class _FoodPageState extends State<FoodPage> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/cart');
+        },
+        child: Icon(Icons.shopping_cart),
+      ),
       );
     }
   }
