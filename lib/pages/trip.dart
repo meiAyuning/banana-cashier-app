@@ -181,7 +181,12 @@ class _TripPageState extends State<TripPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/cart');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CartPage(),
+              ),
+            );
           },
           child: Icon(Icons.shopping_cart),
         ),

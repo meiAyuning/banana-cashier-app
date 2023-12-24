@@ -174,11 +174,16 @@ class _RoomPageState extends State<RoomPage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/cart');
-        },
-        child: Icon(Icons.shopping_cart),
-      ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CartPage(),
+              ),
+            );
+          },
+          child: Icon(Icons.shopping_cart),
+        ),
       );
     }
   }
