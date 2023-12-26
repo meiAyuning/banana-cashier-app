@@ -16,18 +16,21 @@ class MenuModel {
     required this.name,
     required this.price,
     required this.image,
+    required this.quantity,
   });
 
   int id;
   String name;
   int price;
   String image;
+  int quantity;
 
   factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
         id: json["id"],
         name: json["name"],
         price: json["price"],
         image: json["image"],
+        quantity: json["quantity"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,5 +38,6 @@ class MenuModel {
         "name": name,
         "price": price,
         "image": image,
+        "quantity": quantity,
       };
 }
