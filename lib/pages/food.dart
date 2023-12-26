@@ -60,7 +60,7 @@ class _FoodPageState extends State<FoodPage> {
                       IconButton(
                           onPressed: () {
                             Provider.of<CartProvider>(context, listen: false)
-                                .addRemove(food[0], false);
+                                .addRemove(int.parse(food[0]), false);
                           },
                           icon: Icon(
                             Icons.remove_circle,
@@ -72,7 +72,7 @@ class _FoodPageState extends State<FoodPage> {
                       Consumer<CartProvider>(
                         builder: (context, value, _) {
                           var id = value.cart.indexWhere(
-                              (element) => element.id == food.data![0].id);
+                              (element) => element.id == int.parse(food[0]));
                           return Text(
                             (id == -1)
                                 ? "0"
@@ -85,14 +85,14 @@ class _FoodPageState extends State<FoodPage> {
                         width: 10,
                       ),
                       IconButton(
-                          onPressed: () {
-                            Provider.of<CartProvider>(context, listen: false)
-                                .addRemove(food[0], true);
-                          },
-                          icon: Icon(
-                            Icons.add_circle,
-                            color: Colors.green,
-                          )),
+                        onPressed: () {
+                          Provider.of<CartProvider>(context, listen: false)
+                              .addRemove(int.parse(food[0]), true);
+                        },
+                        icon: Icon(
+                          Icons.add_circle,
+                          color: Colors.green,
+                        )),
                     ],
                   )
                 ],
@@ -180,16 +180,16 @@ class _FoodPageState extends State<FoodPage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+          onPressed: () {
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => CartPage(),
               ),
             );
-        },
-        child: Icon(Icons.shopping_cart),
-      ),
+          },
+          child: Icon(Icons.shopping_cart),
+        ),
       );
     }
   }

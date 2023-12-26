@@ -14,19 +14,20 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   getData() async {
-    final api = UserSheetsApi();
-    final cartData = await api.getSheet('Cart');
-    return cartData;
+    CartProvider dataCart = CartProvider();
+    // final api = UserSheetsApi();
+    // final cartData = await api.getSheet('Cart');
+    return dataCart.cart;
   }
 
   getWedget(carts) {
     List<Widget> cartWidget = [];
-    carts.removeAt(0);
+    // carts.removeAt(0);
     for (var cart in carts) {
       cartWidget.add(Row(
         children: [
           Container(
-            child: Image.network(cart[3], height: 85, width: 85),
+            child: Image.network(cart.image, height: 85, width: 85),
             height: 85,
             width: 85,
             padding: EdgeInsets.all(10),
@@ -40,7 +41,7 @@ class _CartPageState extends State<CartPage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(1),
                   child: Text(
-                    cart[1],
+                    cart.name,
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -48,7 +49,7 @@ class _CartPageState extends State<CartPage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(1),
                   child: Text(
-                    'Rp.' + cart[2],
+                    'Rp. ' + cart.price.toString(),
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -57,7 +58,7 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(cart[0], false);
+                              .addRemove(int.parse(cart.id), false);
                         },
                         icon: Icon(
                           Icons.remove_circle,
@@ -68,10 +69,8 @@ class _CartPageState extends State<CartPage> {
                     ),
                     Consumer<CartProvider>(
                       builder: (context, value, _) {
-                        var id = value.cart.indexWhere((
-                          element,
-                        ) =>
-                            element.id == cart.data![0].id);
+                        var id = value.cart
+                            .indexWhere((element) => element.id == cart.id);
                         return Text(
                           (id == -1) ? "0" : value.cart[id].quantity.toString(),
                           textAlign: TextAlign.left,
@@ -84,7 +83,7 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(cart[0], true);
+                              .addRemove(int.parse(cart.id), true);
                         },
                         icon: Icon(
                           Icons.add_circle,
@@ -106,11 +105,9 @@ class _CartPageState extends State<CartPage> {
   @override
   initState() {
     super.initState();
-
-    getData().then((data) {
-      setState(() {
-        cartState = data;
-      });
+    setState(() {
+      CartProvider dataCart = CartProvider();
+      cartState = dataCart.cart;
     });
   }
 
@@ -179,69 +176,4 @@ class _CartPageState extends State<CartPage> {
   }
 }
 
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:bananacashierapp/providers/cart_provider.dart';
-// import 'package:bananacashierapp/models/cart_item.dart';
 
-// class CartPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     List<CartItem> cartItems =
-//         Provider.of<CartProvider>(context).cart;
-  
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Banana Cashier'),
-//       ),
-//       body: ListView.builder(
-//         itemCount: cartItems.length,
-//         itemBuilder: (context, index) {
-//           return ListTile(
-//             title: Text(cartItems[index].name),
-//             subtitle:
-//                 Text('\Rp. ${cartItems[index].price.toStringAsFixed(3)}'),
-//                 trailing: Row(
-//                   children: [
-//                     IconButton(
-//                         onPressed: () {
-//                           Provider.of<CartProvider>(context, listen: false)
-//                               .addRemove(room[index], false);
-//                         },
-//                         icon: Icon(
-//                           Icons.remove_circle,
-//                           color: Colors.red,
-//                         )),
-//                     SizedBox(
-//                       width: 10,
-//                     ),
-//                     Consumer<CartProvider>(
-//                       builder: (context, value, _) {
-//                         var id = value.cart.indexWhere(
-//                             (element) => element.id == room.data![0].id);
-//                         return Text(
-//                           (id == -1) ? "0" : value.cart[id].quantity.toString(),
-//                           textAlign: TextAlign.left,
-//                         );
-//                       },
-//                     ),
-//                     SizedBox(
-//                       width: 10,
-//                     ),
-//                     IconButton(
-//                         onPressed: () {
-//                           Provider.of<CartProvider>(context, listen: false)
-//                               .addRemove(room[index], true);
-//                         },
-//                         icon: Icon(
-//                           Icons.add_circle,
-//                           color: Colors.green,
-//                         )),
-//                   ],
-//                 ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }

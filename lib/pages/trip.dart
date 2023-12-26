@@ -69,18 +69,28 @@ class _TripPageState extends State<TripPage> {
                       SizedBox(
                         width: 10,
                       ),
+                      // Consumer<CartProvider>(
+                      //   builder: (context, value, _) {
+                      //     var id = value.cart.indexWhere(
+                      //         (element) => element.id == trip.data![0].id);
+                      //     return Text(
+                      //       (id == -1)
+                      //           ? "0"
+                      //           : value.cart[id].quantity.toString(),
+                      //       textAlign: TextAlign.left,
+                      //     );
+                      //   },
+                      // ),
                       Consumer<CartProvider>(
-                        builder: (context, value, _) {
-                          var id = value.cart.indexWhere(
-                              (element) => element.id == trip.data![0].id);
-                          return Text(
-                            (id == -1)
-                                ? "0"
-                                : value.cart[id].quantity.toString(),
-                            textAlign: TextAlign.left,
-                          );
-                        },
-                      ),
+                      builder: (context, value, _) {
+                        var id = value.cart.indexWhere(
+                            (element) => element.id == int.parse(trip[0]));
+                        return Text(
+                          (id == -1) ? "0" : value.cart[id].quantity.toString(),
+                          textAlign: TextAlign.left,
+                        );
+                      },
+                    ),
                       SizedBox(
                         width: 10,
                       ),

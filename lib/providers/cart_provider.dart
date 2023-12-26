@@ -1,9 +1,9 @@
 import 'package:bananacashierapp/models/cart_item.dart';
 import 'package:flutter/material.dart';
 
+List<CartItem> _cart = [];
 
 class CartProvider with ChangeNotifier {
-  List<CartItem> _cart = [];
   List<CartItem> get cart => _cart;
   // int _total = 0;
   // int get total => _total;
@@ -24,10 +24,10 @@ class CartProvider with ChangeNotifier {
       //         : 0;
     } else {
       // belum ada
-      _cart.add(CartItem(id: id, name: "",price: 1,image: "",quantity: 1));
+      _cart.add(CartItem(id: id, name: "", price: 1, image: "", quantity: 1));
       // _total = _total + 1;
     }
-    
+
     notifyListeners();
   }
 }
