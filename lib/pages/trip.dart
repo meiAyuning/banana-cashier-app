@@ -58,14 +58,23 @@ class _TripPageState extends State<TripPage> {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {
-                            Provider.of<CartProvider>(context, listen: false)
-                                .addRemove(trip[0], false);
-                          },
-                          icon: Icon(
-                            Icons.remove_circle,
-                            color: Colors.red,
-                          )),
+                        onPressed: () {
+                          Provider.of<CartProvider>(context, listen: false)
+                              .addRemove(int.parse(trip[0]), false);
+                        },
+                        icon: Icon(
+                          Icons.remove_circle,
+                          color: Colors.red,
+                        )),
+                      // IconButton(
+                      //     onPressed: () {
+                      //       Provider.of<CartProvider>(context, listen: false)
+                      //           .addRemove(trip[0], false);
+                      //     },
+                      //     icon: Icon(
+                      //       Icons.remove_circle,
+                      //       color: Colors.red,
+                      //     )),
                       SizedBox(
                         width: 10,
                       ),
@@ -95,14 +104,14 @@ class _TripPageState extends State<TripPage> {
                         width: 10,
                       ),
                       IconButton(
-                          onPressed: () {
-                            Provider.of<CartProvider>(context, listen: false)
-                                .addRemove(trip[0], true);
-                          },
-                          icon: Icon(
-                            Icons.add_circle,
-                            color: Colors.green,
-                          )),
+                        onPressed: () {
+                          Provider.of<CartProvider>(context, listen: false)
+                              .addRemove(int.parse(trip[0]), true);
+                        },
+                        icon: Icon(
+                          Icons.add_circle,
+                          color: Colors.green,
+                        )),
                     ],
                   )
                 ],

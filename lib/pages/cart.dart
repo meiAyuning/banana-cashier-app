@@ -1,6 +1,6 @@
 import 'package:bananacashierapp/main.dart';
 import 'package:flutter/material.dart';
-import 'package:bananacashierapp/api/sheets/user_sheets_api.dart';
+// import 'package:bananacashierapp/api/sheets/user_sheets_api.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:bananacashierapp/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +12,14 @@ class CartPage extends StatefulWidget {
   State<CartPage> createState() => _CartPageState();
 }
 
+void onSaveButtonPressed() {
+  print('Save button pressed!');
+}
+
 class _CartPageState extends State<CartPage> {
   getData() async {
     CartProvider dataCart = CartProvider();
+    // double totalPrice = 0.0;
     // final api = UserSheetsApi();
     // final cartData = await api.getSheet('Cart');
     return dataCart.cart;
@@ -55,6 +60,15 @@ class _CartPageState extends State<CartPage> {
                 ),
                 Row(
                   children: [
+                    // IconButton(
+                    //     onPressed: () {
+                    //       Provider.of<CartProvider>(context, listen: false)
+                    //           .addRemove(int.parse(cart[0]), false);
+                    //     },
+                    //     icon: Icon(
+                    //       Icons.remove_circle,
+                    //       color: Colors.red,
+                    //     )),
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
@@ -67,6 +81,16 @@ class _CartPageState extends State<CartPage> {
                     SizedBox(
                       width: 10,
                     ),
+                    // Consumer<CartProvider>(
+                    //   builder: (context, value, _) {
+                    //     var id = value.cart.indexWhere(
+                    //         (element) => element.id == int.parse(cart[0]));
+                    //     return Text(
+                    //       (id == -1) ? "0" : value.cart[id].quantity.toString(),
+                    //       textAlign: TextAlign.left,
+                    //     );
+                    //   },
+                    // ),
                     Consumer<CartProvider>(
                       builder: (context, value, _) {
                         var id = value.cart
@@ -90,7 +114,7 @@ class _CartPageState extends State<CartPage> {
                           color: Colors.green,
                         )),
                   ],
-                )
+                ),
               ],
             ),
           )
@@ -164,6 +188,10 @@ class _CartPageState extends State<CartPage> {
                           ],
                         ),
                       ),
+                      ElevatedButton(
+                        onPressed: onSaveButtonPressed,
+                        child: Text('Bayar'),
+                      ),
                     ],
                   ),
                 ),
@@ -175,5 +203,3 @@ class _CartPageState extends State<CartPage> {
     }
   }
 }
-
-
