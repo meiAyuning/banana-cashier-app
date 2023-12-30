@@ -24,7 +24,7 @@ class CartProvider with ChangeNotifier {
       //         : 0;
     } else {
       // belum ada
-      _cart.add(CartItem(id: id, name: "", price: 1, image: "", quantity: 1));
+      _cart.add(CartItem(id: id, name: "", price: 1, image: "", quantity: 1, total: 1));
       // _total = _total + 1;
     }
 

@@ -46,7 +46,7 @@ class _CartPageState extends State<CartPage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(1),
                   child: Text(
-                    cart.name,
+                    'Nama' + cart.name,
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -135,6 +135,14 @@ class _CartPageState extends State<CartPage> {
     });
   }
 
+  // int calculateTotalPrice() {
+  //   int total = 0;
+  //   for (var item in _cartItem) {
+  //     total = item['price'] * item['quantity'];
+  //   }
+  //   return total;
+  // }
+
   @override
   Widget build(BuildContext context) {
     if (cartState == null) {
@@ -188,12 +196,28 @@ class _CartPageState extends State<CartPage> {
                           ],
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: onSaveButtonPressed,
-                        child: Text('Bayar'),
-                      ),
                     ],
                   ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Total: \Rp.',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    print('Payment success!');
+                  },
+                  child: Text('Pay Now'),
                 ),
               ],
             ),
