@@ -42,5 +42,6 @@ class MenuModel {
         "price": price,
         "image": image,
         "quantity": quantity,
+        "total" : total,
       };
 }

@@ -60,15 +60,6 @@ class _CartPageState extends State<CartPage> {
                 ),
                 Row(
                   children: [
-                    // IconButton(
-                    //     onPressed: () {
-                    //       Provider.of<CartProvider>(context, listen: false)
-                    //           .addRemove(int.parse(cart[0]), false);
-                    //     },
-                    //     icon: Icon(
-                    //       Icons.remove_circle,
-                    //       color: Colors.red,
-                    //     )),
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
@@ -81,16 +72,6 @@ class _CartPageState extends State<CartPage> {
                     SizedBox(
                       width: 10,
                     ),
-                    // Consumer<CartProvider>(
-                    //   builder: (context, value, _) {
-                    //     var id = value.cart.indexWhere(
-                    //         (element) => element.id == int.parse(cart[0]));
-                    //     return Text(
-                    //       (id == -1) ? "0" : value.cart[id].quantity.toString(),
-                    //       textAlign: TextAlign.left,
-                    //     );
-                    //   },
-                    // ),
                     Consumer<CartProvider>(
                       builder: (context, value, _) {
                         var id = value.cart
@@ -205,13 +186,13 @@ class _CartPageState extends State<CartPage> {
         ),
         bottomNavigationBar: BottomAppBar(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Total: \Rp.',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  'Total : \Rp.',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 ElevatedButton(
                   onPressed: () {
