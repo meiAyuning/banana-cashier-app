@@ -118,11 +118,33 @@ class _CartPageState extends State<CartPage> {
 
   // int calculateTotalPrice() {
   //   int total = 0;
-  //   for (var item in _cartItem) {
-  //     total = item['price'] * item['quantity'];
+  //   for (var item in _cartItems) {
+  //     total += item['price'] * item['quantity'];
   //   }
   //   return total;
   // }
+
+  void _checkout() {
+    Future.delayed(Duration(seconds: 1), () {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Payment Completed !'),
+            content: Text('Thank you for your purchase :)'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +156,7 @@ class _CartPageState extends State<CartPage> {
         body: Center(
           child: SpinKitSpinningLines(
             color: Color.fromARGB(235, 235, 188, 34),
-            size: 50.0,
+            size: 30.0,
           ),
         ),
       );
@@ -195,9 +217,7 @@ class _CartPageState extends State<CartPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    print('Payment success!');
-                  },
+                  onPressed: _checkout,
                   child: Text('Pay Now'),
                 ),
               ],
