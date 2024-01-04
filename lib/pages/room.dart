@@ -58,7 +58,7 @@ class _RoomPageState extends State<RoomPage> {
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(room[0]), false);
+                              .addRemove(int.parse(room[0]), false, room);
                         },
                         icon: Icon(
                           Icons.remove_circle,
@@ -69,10 +69,14 @@ class _RoomPageState extends State<RoomPage> {
                     ),
                     Consumer<CartProvider>(
                       builder: (context, value, _) {
-                        var id = value.cart.indexWhere(
-                            (element) => element.id == int.parse(room[0]));
+                        var idRoom = value.cart.indexWhere((element) =>
+                            element.id == int.parse(room[0]) &&
+                            element.tipe == room[4]);
+
                         return Text(
-                          (id == -1) ? "0" : value.cart[id].quantity.toString(),
+                          (idRoom == -1)
+                              ? "0"
+                              : value.cart[idRoom].quantity.toString(),
                           textAlign: TextAlign.left,
                         );
                       },
@@ -83,7 +87,7 @@ class _RoomPageState extends State<RoomPage> {
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(room[0]), true);
+                              .addRemove(int.parse(room[0]), true, room);
                         },
                         icon: Icon(
                           Icons.add_circle,

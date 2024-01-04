@@ -58,60 +58,42 @@ class _TripPageState extends State<TripPage> {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () {
-                          Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(trip[0]), false);
-                        },
-                        icon: Icon(
-                          Icons.remove_circle,
-                          color: Colors.red,
-                        )),
-                      // IconButton(
-                      //     onPressed: () {
-                      //       Provider.of<CartProvider>(context, listen: false)
-                      //           .addRemove(trip[0], false);
-                      //     },
-                      //     icon: Icon(
-                      //       Icons.remove_circle,
-                      //       color: Colors.red,
-                      //     )),
+                          onPressed: () {
+                            Provider.of<CartProvider>(context, listen: false)
+                                .addRemove(int.parse(trip[0]), false, trip);
+                          },
+                          icon: Icon(
+                            Icons.remove_circle,
+                            color: Colors.red,
+                          )),
                       SizedBox(
                         width: 10,
                       ),
-                      // Consumer<CartProvider>(
-                      //   builder: (context, value, _) {
-                      //     var id = value.cart.indexWhere(
-                      //         (element) => element.id == trip.data![0].id);
-                      //     return Text(
-                      //       (id == -1)
-                      //           ? "0"
-                      //           : value.cart[id].quantity.toString(),
-                      //       textAlign: TextAlign.left,
-                      //     );
-                      //   },
-                      // ),
                       Consumer<CartProvider>(
-                      builder: (context, value, _) {
-                        var id = value.cart.indexWhere(
-                            (element) => element.id == int.parse(trip[0]));
-                        return Text(
-                          (id == -1) ? "0" : value.cart[id].quantity.toString(),
-                          textAlign: TextAlign.left,
-                        );
-                      },
-                    ),
+                        builder: (context, value, _) {
+                          var idTour = value.cart.indexWhere((element) =>
+                              element.id == int.parse(trip[0]) &&
+                              element.tipe == trip[4]);
+                          return Text(
+                            (idTour == -1)
+                                ? "0"
+                                : value.cart[idTour].quantity.toString(),
+                            textAlign: TextAlign.left,
+                          );
+                        },
+                      ),
                       SizedBox(
                         width: 10,
                       ),
                       IconButton(
-                        onPressed: () {
-                          Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(trip[0]), true);
-                        },
-                        icon: Icon(
-                          Icons.add_circle,
-                          color: Colors.green,
-                        )),
+                          onPressed: () {
+                            Provider.of<CartProvider>(context, listen: false)
+                                .addRemove(int.parse(trip[0]), true, trip);
+                          },
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: Colors.green,
+                          )),
                     ],
                   )
                 ],

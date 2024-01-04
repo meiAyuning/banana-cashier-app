@@ -46,7 +46,7 @@ class _CartPageState extends State<CartPage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(1),
                   child: Text(
-                    'Nama' + cart.name,
+                    cart.name,
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -63,7 +63,7 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(cart.id), false);
+                              .addRemove(int.parse(cart.id), false, cart);
                         },
                         icon: Icon(
                           Icons.remove_circle,
@@ -74,10 +74,12 @@ class _CartPageState extends State<CartPage> {
                     ),
                     Consumer<CartProvider>(
                       builder: (context, value, _) {
-                        var id = value.cart
-                            .indexWhere((element) => element.id == cart.id);
+                        var idCart = value.cart.indexWhere(
+                            (element) => element.idCart == cart.idCart);
                         return Text(
-                          (id == -1) ? "0" : value.cart[id].quantity.toString(),
+                          (idCart == -1)
+                              ? "0"
+                              : value.cart[idCart].quantity.toString(),
                           textAlign: TextAlign.left,
                         );
                       },
@@ -88,7 +90,7 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(cart.id), true);
+                              .addRemove(int.parse(cart.id), true, cart);
                         },
                         icon: Icon(
                           Icons.add_circle,
@@ -106,23 +108,18 @@ class _CartPageState extends State<CartPage> {
   }
 
   var cartState;
-
+  var total;
   @override
   initState() {
     super.initState();
     setState(() {
       CartProvider dataCart = CartProvider();
+      total = dataCart.total;
       cartState = dataCart.cart;
+
+      print(total);
     });
   }
-
-  // int calculateTotalPrice() {
-  //   int total = 0;
-  //   for (var item in _cartItems) {
-  //     total += item['price'] * item['quantity'];
-  //   }
-  //   return total;
-  // }
 
   void _checkout() {
     Future.delayed(Duration(seconds: 1), () {
@@ -131,7 +128,7 @@ class _CartPageState extends State<CartPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Payment Completed !'),
-            content: Text('Thank you for your purchase :)'),
+            content: Text('Thank you for your purchase ;)'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -213,7 +210,7 @@ class _CartPageState extends State<CartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Total : \Rp.',
+                  'Total : \Rp.' + total.toString(),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 ElevatedButton(

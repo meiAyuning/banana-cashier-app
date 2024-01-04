@@ -12,7 +12,10 @@ String menuModelToJson(List<MenuModel> data) =>
 
 class MenuModel {
   MenuModel({
-    required this.id,
+    required this.idRoom,
+    required this.idTour,
+    required this.idMenu,
+    required this.idCart,
     required this.name,
     required this.price,
     required this.image,
@@ -20,7 +23,10 @@ class MenuModel {
     required this.total,
   });
 
-  int id;
+  int idRoom;
+  int idTour;
+  int idMenu;
+  int idCart;
   String name;
   int price;
   String image;
@@ -28,7 +34,10 @@ class MenuModel {
   double total;
 
   factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
-        id: json["id"],
+        idRoom: json["idRoom"],
+        idTour: json["idTour"],
+        idMenu: json["idMenu"],
+        idCart: json["idCart"],
         name: json["name"],
         price: json["price"],
         image: json["image"],
@@ -37,7 +46,10 @@ class MenuModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "idRoom": idRoom,
+        "idTour": idTour,
+        "idMenu": idMenu,
+        "idCart": idCart,
         "name": name,
         "price": price,
         "image": image,

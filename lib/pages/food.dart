@@ -60,7 +60,7 @@ class _FoodPageState extends State<FoodPage> {
                       IconButton(
                           onPressed: () {
                             Provider.of<CartProvider>(context, listen: false)
-                                .addRemove(int.parse(food[0]), false);
+                                .addRemove(int.parse(food[0]), false, food);
                           },
                           icon: Icon(
                             Icons.remove_circle,
@@ -71,12 +71,13 @@ class _FoodPageState extends State<FoodPage> {
                       ),
                       Consumer<CartProvider>(
                         builder: (context, value, _) {
-                          var id = value.cart.indexWhere(
-                              (element) => element.id == int.parse(food[0]));
+                          var idMenu = value.cart.indexWhere((element) =>
+                              element.id == int.parse(food[0]) &&
+                              element.tipe == food[4]);
                           return Text(
-                            (id == -1)
+                            (idMenu == -1)
                                 ? "0"
-                                : value.cart[id].quantity.toString(),
+                                : value.cart[idMenu].quantity.toString(),
                             textAlign: TextAlign.left,
                           );
                         },
@@ -85,14 +86,14 @@ class _FoodPageState extends State<FoodPage> {
                         width: 10,
                       ),
                       IconButton(
-                        onPressed: () {
-                          Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(food[0]), true);
-                        },
-                        icon: Icon(
-                          Icons.add_circle,
-                          color: Colors.green,
-                        )),
+                          onPressed: () {
+                            Provider.of<CartProvider>(context, listen: false)
+                                .addRemove(int.parse(food[0]), true, food);
+                          },
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: Colors.green,
+                          )),
                     ],
                   )
                 ],
@@ -115,6 +116,7 @@ class _FoodPageState extends State<FoodPage> {
     getDataFood().then((data) {
       setState(() {
         foodState = data;
+        // print(data);
       });
     });
   }
