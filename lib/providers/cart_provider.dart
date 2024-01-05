@@ -9,6 +9,34 @@ class CartProvider with ChangeNotifier {
   int _subTotal = 0;
   int get total => this.caculateTotal();
 
+  void removeCart() {
+    _cart = [];
+  }
+
+  void addRemoveCart(int id, bool isAdd, cart) {
+    if (_cart
+        .where((element) => id == element.id && cart.tipe == element.tipe)
+        .isNotEmpty) {
+      // sudah mengandung id yang diklik
+      var index = _cart.indexWhere(
+          (element) => element.id == id && element.tipe == cart.tipe);
+      _cart[index].quantity = (isAdd)
+          ? _cart[index].quantity + 1
+          : (_cart[index].quantity > 0)
+              ? _cart[index].quantity - 1
+              : 0;
+      _subTotal = _cart[index].subTotal;
+      _subTotal = (isAdd)
+          ? _subTotal += _cart[index].price
+          : (_subTotal > 0)
+              ? _subTotal -= _cart[index].price
+              : 0;
+      _cart[index].subTotal = _subTotal;
+      _subTotal = 0;
+    }
+    notifyListeners();
+  }
+
   void addRemove(int id, bool isAdd, List data) {
     if (_cart
         .where((element) => id == element.id && data[4] == element.tipe)

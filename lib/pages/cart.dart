@@ -1,3 +1,4 @@
+import 'package:bananacashierapp/api/sheets/user_sheets_api.dart';
 import 'package:bananacashierapp/main.dart';
 import 'package:flutter/material.dart';
 // import 'package:bananacashierapp/api/sheets/user_sheets_api.dart';
@@ -17,12 +18,28 @@ void onSaveButtonPressed() {
 }
 
 class _CartPageState extends State<CartPage> {
-  getData() async {
-    CartProvider dataCart = CartProvider();
-    // double totalPrice = 0.0;
-    // final api = UserSheetsApi();
-    // final cartData = await api.getSheet('Cart');
-    return dataCart.cart;
+  insert() async {
+    CartProvider dataCart = new CartProvider();
+    final api = UserSheetsApi();
+    final sheet = await api.getWorkSheet('Cart');
+    var cart = await sheet?.values.allRows();
+    var row = cart.length;
+
+    dataCart.cart.forEach((element) async {
+      ++row;
+      await sheet.values.insertRow(
+        row,
+        [
+          element.idCart + 1,
+          element.name,
+          element.price,
+          element.quantity,
+          element.quantity * element.price
+        ],
+      );
+    });
+
+    dataCart.removeCart();
   }
 
   getWedget(carts) {
@@ -63,7 +80,10 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(cart.id), false, cart);
+                              .addRemoveCart(cart.id, false, cart);
+                          setState(() {
+                            total = getTotal();
+                          });
                         },
                         icon: Icon(
                           Icons.remove_circle,
@@ -74,8 +94,8 @@ class _CartPageState extends State<CartPage> {
                     ),
                     Consumer<CartProvider>(
                       builder: (context, value, _) {
-                        var idCart = value.cart.indexWhere(
-                            (element) => element.idCart == cart.idCart);
+                        var idCart = value.cart.indexWhere((element) =>
+                            element.id == cart.id && element.tipe == cart.tipe);
                         return Text(
                           (idCart == -1)
                               ? "0"
@@ -90,7 +110,10 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                         onPressed: () {
                           Provider.of<CartProvider>(context, listen: false)
-                              .addRemove(int.parse(cart.id), true, cart);
+                              .addRemoveCart(cart.id, true, cart);
+                          setState(() {
+                            total = getTotal();
+                          });
                         },
                         icon: Icon(
                           Icons.add_circle,
@@ -116,12 +139,17 @@ class _CartPageState extends State<CartPage> {
       CartProvider dataCart = CartProvider();
       total = dataCart.total;
       cartState = dataCart.cart;
-
-      print(total);
     });
   }
 
-  void _checkout() {
+  int getTotal() {
+    CartProvider cartProvider = new CartProvider();
+    cartProvider.caculateTotal();
+    return cartProvider.total;
+  }
+
+  void _checkout() async {
+    await insert();
     Future.delayed(Duration(seconds: 1), () {
       showDialog(
         context: context,
@@ -132,7 +160,10 @@ class _CartPageState extends State<CartPage> {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
                 },
                 child: Text('OK'),
               ),
